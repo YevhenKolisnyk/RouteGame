@@ -13,8 +13,11 @@ To build you need points:
  - Node cost {0} points;
  - Link cost {1} points;
  - Delivered package gives you {2} points;
- - Fee for destroying is {3} plus {4} for each package. 
+ - Fee for destroying is {3} plus {4} for each package.
+
  During the game new base (colored) nodes appear.
 Have fun!
 
-![Screenshot](RouteGame\ScreenShot\3.png?raw=true RouteGame UI")
+<div align="center">
+    <img src="/RouteGame/ScreenShot/3.png" width="600px"</img> 
+</div>
