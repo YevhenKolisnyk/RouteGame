@@ -4,7 +4,7 @@
 
 /.vs
 /RouteGame/.vs/RouteGame
-/RouteGame/AppPackages/RouteGame_1.0.0.0_Debug_Test
+/RouteGame/AppPackages
 /RouteGame/bin
 /RouteGame/BundleArtifacts
 /RouteGame/obj
