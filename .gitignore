@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/RouteGame/.vs/RouteGame
+/RouteGame/AppPackages/RouteGame_1.0.0.0_Debug_Test
+/RouteGame/bin
+/RouteGame/BundleArtifacts
+/RouteGame/obj
