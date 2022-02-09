@@ -1,0 +1,47 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+     # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    env:
+      SigningCertificate: RouteGame_TemporaryKey.pfx
+      Solution_Path: RouteGame.sln
+      UWP_Project_Path: RouteGame\RouteGame.csproj
+      UWP_Project_Directory: RouteGame
+      UWP_Build_Directory: Deploy
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.0
+        
+    - name: Build the sideload solution
+      run: msbuild $env:Solution_Path /p:Platform=x64 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir=$env:UWP_Build_Directory /p:PackageCertificateKeyFile=$env:SigningCertificate /restore
+      env:
+        AppxBundle: Always
+        BuildMode: StoreUpload
+        Configuration: Release
+  
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: RouteGame_Sideload
+        path: $env:UWP_Project_Directory\$env:UWP_Build_Directory
