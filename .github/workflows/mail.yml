@@ -18,9 +18,7 @@ jobs:
 
     env:
       SigningCertificate: RouteGame_TemporaryKey.pfx
-      Solution_Path: RouteGame.sln
       UWP_Project_Directory: RouteGame
-      UWP_Build_Directory: Deploy
 
     steps:
 
@@ -40,7 +38,7 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
         
     - name: Build the sideload solution
-      run: msbuild $env:Solution_Path /p:Platform=x86 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir=$env:UWP_Build_Directory /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.CERT_PWD }} /restore
+      run: msbuild RouteGame.sln /p:Platform=x86 /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir=Deploy /p:PackageCertificateKeyFile=$env:SigningCertificate /p:PackageCertificatePassword=${{ secrets.CERT_PWD }} /restore
       env:
         AppxBundle: Always
         BuildMode: StoreUpload
@@ -53,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: RouteGame_Sideload
-        path: .
+        path: .\RouteGame\Deploy
